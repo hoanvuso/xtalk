@@ -1,0 +1,23 @@
+.star {
+    position: relative;
+    display: inline-block;
+    font-size: 1.5rem;
+    color: #ffd40a;
+  }
+  .full {
+    color: #ffd40a;
+  }
+  .half {
+    position: absolute;
+    display: inline-block;
+    overflow: hidden;
+    color: #ffd40a;;
+  }
+
+.search-result_list{
+  position: absolute !important;
+  min-width: 100%;
+  border-radius: 10%;
+  border-top: 2px solid;
+  z-index: 400;
+}

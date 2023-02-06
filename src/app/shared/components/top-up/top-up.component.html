@@ -1,0 +1,53 @@
+<div class="card-main" *ngIf="user && user.id;else notLogin">
+  <div class="container" *ngIf="user.role == 'member'">
+    <div class="row">
+      <div class="col-sm-2">
+        <div class="title-card">
+        <h3><i class="fa fa-credit-card"></i> Credit Card</h3>
+        Webtoken purchase options are:
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <ul class="list-card">
+          <li *ngFor="let topup of listTopup">
+            <!-- <a  href="{{ccbill+paymentSetting.accountNumber+'&clientSubacc='+paymentSetting.subAccount+'&formName='+topup.formName+'&formPrice='+topup.formPrice+'&user_id='+user.id+'&topupId='+topup._id}}" class="box-choose-card" > -->
+              <a  href="{{ccbillPath+topup.flexformId+'?user_id='+user.id+'&topupId='+topup._id}}" class="box-choose-card" >
+              <span>{{config?.currency}}{{getPrice(topup.price)}}</span> ({{topup.token}} Credits)
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="col-sm-4 text-right">
+        <p>Girls2talk2.com uses webtokens to pay for sessions.  1 token = $1USD – You can purchase webtokens using a Major Credit card, Debit card or Gift card. Payments are processed as Webtokens and will show up on your payment card statement as webtokens.  Payments are non-refundable and non-recurring.</p>
+       <!--  <img src="assets/images/card.png"> -->
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #notLogin>
+  <div class="card-main" >
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-2">
+          <div class="title-card">
+          <h3><i class="fa fa-credit-card"></i> Credit Card</h3>
+          Webtoken purchase options are:
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <ul class="list-card">
+            <li *ngFor="let topup of listTopup">
+              <a  [routerLink]="['/login']" class="box-choose-card" >
+                <span>{{config?.currency}}{{getPrice(topup.price)}}</span> ({{topup.token}} Credits)
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="col-sm-4 text-right">
+          <p>Girls2talk2.com uses webtokens to pay for sessions.  1 token = $1USD – You can purchase webtokens using a Major Credit card, Debit card or Gift card. Payments are processed as Webtokens and will show up on your payment card statement as webtokens.  Payments are non-refundable and non-recurring.</p>
+          <!-- <img src="assets/images/card.png"> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

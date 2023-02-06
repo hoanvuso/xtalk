@@ -1,0 +1,58 @@
+
+<div class="header">
+  <div class="logo">
+    <a [routerLink]='["/home"]'><img src="{{pageConfig.getLogo()}}"></a>
+  </div>
+  <a  class="toggle-menu" (click)="acitveToggleMenu=!acitveToggleMenu" [ngClass]="acitveToggleMenu?'active':'' "><i class="fa fa-bars"></i></a>
+  <div class="search-top">
+    <input type="text" name="" placeholder="Enter keyword" (keyup)="searchTerm$.next($event.target.value)"
+    placeholder="Search ">
+    <button><i class="fa fa-search"></i></button>
+    <ul class="list-group search-result_list" *ngIf="results">
+      <li class="list-group-item" *ngFor="let result of results ">
+          <a  href="/model-detail/{{ result.id }}" target="_blank">
+              {{ result.firstName }} {{result.lastName }}
+          </a>
+      </li>
+    </ul>
+  </div>
+  <div class="right-header" [ngClass]="acitveToggleMenu?'active':'' ">
+    <div *ngIf="user && user.access_token ; else notLogin" class="menu-profile"  >
+      <li ngbDropdown>
+        Hi!
+        <a   class="dropdown-toggle"  id="dropdownMenuButton" ngbDropdownToggle >{{user.lastName}} <i   class="fa fa-angle-down"></i></a>
+        <div ngbDropdownMenu aria-labelledby="dropdownMenuButton">
+          <button ngbDropdownItem [routerLink]="['/profile']">Profile</button>
+          <button ngbDropdownItem [routerLink]="['/talk-history']">Talk History</button>
+          <button ngbDropdownItem [routerLink]="['/message']"> Message</button>
+          <button ngbDropdownItem [routerLink]="['/auth']"> Change Password</button>
+
+          <button *ngIf="user && user.role == 'model' " ngbDropdownItem [routerLink]="['/auth/send-withdraw']"> Send WithDraw</button>
+          <button *ngIf="user && user.role == 'model' " ngbDropdownItem [routerLink]="['/auth/bank-account']"> Bank Account</button>
+          <button *ngIf="user && user.role == 'model' " ngbDropdownItem [routerLink]="['/my-gallery']"> Gallery</button>
+          <button ngbDropdownItem (click)="logout()">Log out</button>
+        </div>
+      </li>
+      <li>
+        <a [routerLink]="['/notification']" class="nofication"><i class="fa fa-bell"></i></a>
+      </li>
+    </div>
+    <ng-template #notLogin>
+      <div class="menu-login">
+        <a [routerLink]="['/login']">Login</a>  |  <a [routerLink]="['/sign-up']">Signup User</a> |  <a [routerLink]="['/register-model']">Signup Model</a>
+      </div>
+    </ng-template>
+    
+    <ul class="nav-main">
+      <li ><a [routerLink]='["/home"]'>Home</a></li>
+      <li ><a [routerLink]='["/models"]'  >Models</a></li>
+      <li *ngIf="user && user.role == 'member' ">
+        <a href="https://buywebtokens.com/downloads/girls2talk2/" >Get Tokens</a>
+      </li>
+      <li><a [routerLink]='["/how-to-call"]' >How to Call</a></li>
+      <li *ngIf="user && user.role == 'member' "><a  >{{timer}} tokens</a></li>
+    </ul>
+  </div>
+</div>
+
+

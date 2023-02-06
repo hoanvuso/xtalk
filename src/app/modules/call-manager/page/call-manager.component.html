@@ -1,0 +1,66 @@
+<h2 class="title-list text-center">Call Manager</h2>
+<br>
+
+<mat-divider></mat-divider>
+<br>
+<div fxLayout="row wrap" fxLayoutAlign="space-between center" fxLayoutGap="20px">
+  <div fxFlex="100">
+    <div class="container" fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="space-between center" clas="m-2"
+      fxLayoutGap="20px">
+      <div fxFlex.lt-md="100" fxLayoutGap.lt-md="10px" fxLayoutGap="20px" fxFlex="60">
+        <div class="acction-toolbar">
+        </div>
+      </div>
+    </div>
+    <div class="mat-elevation-z8">
+      <mat-table [dataSource]="listCalls" matSort>
+        <!--  Name Column -->
+        <ng-container matColumnDef="userId">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> From </mat-header-cell>
+          <mat-cell *matCellDef="let call"> {{call.userId?.firstName}} {{call.userId?.lastName}}</mat-cell>
+
+        </ng-container>
+
+        <!--Email Column -->
+        <ng-container matColumnDef="to">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> To </mat-header-cell>
+          <mat-cell *matCellDef="let call"> {{call.to?.firstName}}
+            {{call.to?.lastName}}</mat-cell>
+        </ng-container>
+
+        <!-- Role Column -->
+        <ng-container matColumnDef="callStatus">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
+          <mat-cell *matCellDef="let call"> {{call.callStatus}}</mat-cell>
+        </ng-container>
+
+        <!-- Status Column -->
+        <ng-container matColumnDef="callDuration">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Dueration </mat-header-cell>
+          <mat-cell *matCellDef="let call"> {{call.callDuration}}
+          </mat-cell>
+
+        </ng-container>
+        <ng-container matColumnDef="rating">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Rating </mat-header-cell>
+          <mat-cell *matCellDef="let call">{{call.rating}}
+          </mat-cell>
+
+        </ng-container>
+        <!-- Token Column -->
+        <ng-container matColumnDef="recordingUrl">
+          <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>Audio </mat-header-cell>
+          <mat-cell *matCellDef="let call">
+            <audio controls  >
+              <source src="{{call.recordingUrl}}" >
+            </audio>
+          </mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+      <mat-paginator [length]="resultsLength" (page)="handlePage($event)"
+        [pageSizeOptions]="[20,30,50,100,500]"></mat-paginator>
+    </div>
+  </div>
+</div>
